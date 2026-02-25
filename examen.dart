@@ -102,3 +102,73 @@ void listarProducto (List<Map<String, dynamic>> productos){
   }
   
 }
+void actualizarProducto (List<Map<String, dynamic>> productos){
+  print("\n ***** Actualiza los productos *****");
+
+  if(productos.isEmpty){
+    print("No se puede actualizar el producto");
+    return;
+  }
+
+  listarProducto(productos);
+
+  print("Ingrese el indice del producto");
+  int? indice = int.tryParse(stdin.readLineSync()?? "");
+
+  if (indice == null || indice < 0 || indice >= productos.length){
+    print("Seleccione otro indice");
+    return;
+  }
+
+  print("Nuevo nombre");
+  String? nuevoNombre = stdin.readLineSync()?? "";
+
+  print("Nuevo precio");
+  String? nuevoPrecio_actualizado = stdin.readLineSync()?? "";
+
+  print("Nueva cantidad disponible");
+  String? nuevaCantidad_disponible = stdin.readLineSync()?? "";
+
+  if (nuevoNombre.isNotEmpty) {
+    productos[indice]['nombre'] = nuevoNombre;
+  }
+
+  if (nuevoPrecio_actualizado.isNotEmpty) {
+    double? nuevoPrecio = double.tryParse(nuevoPrecio_actualizado);
+    if (nuevoPrecio != null && nuevoPrecio >= 0) {
+      productos[indice]['precio'] = nuevoPrecio;
+    }
+  }
+
+  if (nuevaCantidad_disponible.isNotEmpty) {
+    int? nuevaCantidad = int.tryParse(nuevaCantidad_disponible);
+    if (nuevaCantidad != null && nuevaCantidad >= 0) {
+      productos[indice]['cantidad'] = nuevaCantidad;
+    }
+  }
+
+  print("Producto actualizado correctamente");
+}
+
+void eliminarProducto(List<Map<String, dynamic>> productos) {
+  print("\n***** Eliminar producto *****");
+
+  if (productos.isEmpty) {
+    print("No hay productos para eliminar");
+    return;
+  }
+
+  listarProducto(productos);
+
+  print("Ingrese el índice del producto a eliminar:");
+  int? indice = int.tryParse(stdin.readLineSync() ?? "");
+
+  if (indice == null || indice < 0 || indice >= productos.length) {
+    print("Índice inválido");
+    return;
+  }
+
+  productos.removeAt(indice);
+
+  print("Producto eliminado correctamente");
+}
